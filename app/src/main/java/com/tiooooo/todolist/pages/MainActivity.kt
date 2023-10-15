@@ -88,7 +88,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.rvTodo.apply {
             adapter = todoAdapter
-            layoutManager = lm
+            layoutManager = LinearLayoutManager(
+                this@MainActivity, LinearLayoutManager.VERTICAL, false
+            )
         }
 
         binding.fabAdd.setOnClickListener {
@@ -107,14 +109,14 @@ class MainActivity : AppCompatActivity() {
     private fun addNewData(todo: Todo) {
         dummyData.add(todo)
         updateAdapter()
-        Toast.makeText(this, "${todo.text} berhasil ditambahkan", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "${todo.description} berhasil ditambahkan", Toast.LENGTH_SHORT).show()
     }
 
     private fun handleAdapterListener() = object : TodoAdapterListener {
         override fun onClickDetail(todo: Todo) {
             val intent = Intent(this@MainActivity, DetailActivity::class.java)
             intent.putExtra(EXTRA_ID, todo.id)
-            intent.putExtra(EXTRA_MESSAGE, todo.text)
+            intent.putExtra(EXTRA_MESSAGE, todo.description)
 
             startActivity(intent)
         }
@@ -123,7 +125,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this@MainActivity, AddTodoActivity::class.java)
             intent.putExtra(EXTRA_ID, todo.id)
             intent.putExtra(EXTRA_EDIT, true)
-            intent.putExtra(EXTRA_MESSAGE, todo.text)
+            intent.putExtra(EXTRA_MESSAGE, todo.description)
 
             editLauncher.launch(intent)
         }

@@ -23,13 +23,10 @@ class TodoAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         val todoBinding = binding
-
         fun bindItem(todo: Todo) {
-            todoBinding.tvMessage.text = todo.text
+            todoBinding.tvMessage.text = todo.description
             todoBinding.tvId.text = "ID: ${todo.id}"
         }
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
